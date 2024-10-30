@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id            String      @id @default(uuid())
+  name          String?
+  email         String      @unique
+  githubId      String?     @unique
+  profilePicture String?
+  bio           String?
+  website       String?
+  location      String?
+  startupPosts  StartupPost[] @relation("UserPosts")
+}
+
+
+model StartupPost {
+  id            String      @id @default(uuid())
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  title         String
+  description   String
+  imageUrl      String
+  category      String
+  views         Int         @default(0)
+  authorId      String
+  author        User        @relation(fields: [authorId], references: [id])
+}
+
+
+model Author {
+  id              String      @id @default(uuid())
+  name            String
+  email           String      @unique
+  profilePicture  String?
+  bio             String?
+  website         String?
+  location        String?
+  socialLinks     Json        // JSON field to store links for social media (LinkedIn, Twitter, etc.)
+  expertise       String?     // Area of expertise, e.g., "AI", "FinTech", "Robotics"
+  startupPosts    StartupPost[] // Relation to startup posts authored by this user
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}

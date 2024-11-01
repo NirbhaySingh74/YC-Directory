@@ -39,12 +39,7 @@ export const startup = defineType({
     }),
     defineField({
       name: "pitch",
-      type: "text",
+      type: "markdown",
     }),
   ],
-  preview: {
-    select: {
-      title: "name",
-    },
-  },
 });

@@ -27,6 +27,10 @@ export const startup = defineType({
       type: "number",
     }),
     defineField({
+      name: "description",
+      type: "text",
+    }),
+    defineField({
       name: "category",
       type: "string",
       validation: (Rule) =>

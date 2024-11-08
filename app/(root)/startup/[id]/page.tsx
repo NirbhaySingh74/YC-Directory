@@ -20,7 +20,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const [post, editorPostsData] = await Promise.all([
     client.fetch(STARTUP_BY_ID_QUERY, { id }),
     client.fetch(PLAYLIST_BY_SLUG_QUERY, {
-      slug: "editor-picks-new",
+      slug: "editor-picks",
     }),
   ]);
 
@@ -30,6 +30,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const editorPosts = editorPostsData?.select || [];
 
   const parsedContent = md.render(post?.pitch || "");
+console.log("editorpost", editorPosts);
 
   return (
     <>
